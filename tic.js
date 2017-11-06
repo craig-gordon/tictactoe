@@ -1,11 +1,11 @@
 const prompt = require('prompt');
 
-let board = ` --- --- ---
-| X |   |   |
+const board = ` --- --- ---
+|   |   |   |
  --- --- ---
-| X |   |   |
+|   |   |   |
  --- --- ---
-| X |   |   |
+|   |   |   |
  --- --- ---`;
 
 // open spaces:
@@ -13,7 +13,21 @@ let board = ` --- --- ---
 // 42, 46, 50
 // 69, 73, 77
 
-const playGame = (board) => {
+const idxMappings = {
+  'tl': 15
+  'tm': 19
+  'tr': 23
+  'ml': 42
+  'mm': 46
+  'mr': 50
+  'bl': 69
+  'bm': 73
+  'br': 77
+};
+
+const playGame = (board, idxMappings) => {
+  let end = false;
+
   console.log(`
 Welcome to Tic Tac Toe!
 
@@ -30,10 +44,21 @@ List of acceptable commands:
 - 'bm': Bottom Middle
 - 'br': Bottom Right`);
 
+  const schema = {
+    properties: {
+      move: {
+        message: 'Player 1 -- Enter a move',
+        required: true
+      }
+    }
+  }
+
   prompt.start();
-  prompt.get('firstmove', (err, result) => {
-    console.log(result.firstmove);
-  });
+  while (!end) {
+    prompt.get(schema, (err, result) => {
+      
+    });
+  }
 }
 
 playGame(board);
