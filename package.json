@@ -1,0 +1,14 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "description": "tictactoe",
+  "main": "tic.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Craig Gordon",
+  "license": "ISC",
+  "dependencies": {
+    "prompt": "^1.0.0"
+  }
+}
