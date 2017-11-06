@@ -13,20 +13,21 @@ const board = ` --- --- ---
 // 42, 46, 50
 // 69, 73, 77
 
-const idxMappings = {
-  'tl': 15
-  'tm': 19
-  'tr': 23
-  'ml': 42
-  'mm': 46
-  'mr': 50
-  'bl': 69
-  'bm': 73
+const mappings = {
+  'tl': 15,
+  'tm': 19,
+  'tr': 23,
+  'ml': 42,
+  'mm': 46,
+  'mr': 50,
+  'bl': 69,
+  'bm': 73,
   'br': 77
 };
 
-const playGame = (board, idxMappings) => {
+const playGame = async (board, mappings) => {
   let end = false;
+  let currPlayer = 1;
 
   console.log(`
 Welcome to Tic Tac Toe!
@@ -47,18 +48,26 @@ List of acceptable commands:
   const schema = {
     properties: {
       move: {
-        message: 'Player 1 -- Enter a move',
+        message: `Player ${currPlayer} -- Enter a move`,
         required: true
       }
     }
   }
 
   prompt.start();
-  while (!end) {
-    prompt.get(schema, (err, result) => {
-      
+
+  (function iterateTurns(curr) {
+    console.log('Current Board:\n', board);
+    prompt.get('move', (err, result) => {
+      if (board[mappings[result.move]] === ' ') {
+        board[mappings[result.move]] = curr === 1 ? 'X' : 'O';
+        iterateTurns(board, curr === 1 ? 2 : 1);
+      } else {
+        console.log('Invalid move');
+        iterateTurns(board, curr === 1 ? 1 : 2);
+      }
     });
-  }
+  })(currPlayer);
 }
 
-playGame(board);
+playGame(board, mappings);
